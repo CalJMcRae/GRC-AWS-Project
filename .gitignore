@@ -1,0 +1,33 @@
+# Terraform
+01-aws-lab/terraform/.terraform/
+01-aws-lab/terraform/*.tfstate
+01-aws-lab/terraform/*.tfstate.*
+01-aws-lab/terraform/*.tfvars
+01-aws-lab/terraform/crash.log
+01-aws-lab/terraform/override.tf
+01-aws-lab/terraform/override.tf.json
+
+# AWS / secrets
+*.pem
+*.ppk
+.aws/
+credentials
+aws-exports.*
+**/*secret*
+**/*credentials*
+
+# Scanner output (keep curated findings only, not raw dumps)
+prowler-output/
+scoutsuite-report/
+*.ocsf.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*~
+*.tmp
+
+# Office lock files
+~$*

@@ -1,0 +1,10 @@
+Domain,Weight (%),Questions,Score (0-4),Weighted Score,Key Gaps,Comments
+A. Governance & Compliance,15,A1-A5,,,,
+B. Data Handling & Privacy,20,B1-B5,,,,
+C. Encryption,10,C1-C3,,,,
+D. Access Control,15,D1-D4,,,,
+E. Incident Response,15,E1-E3,,,,
+F. Subprocessors & Supply Chain,10,F1-F3,,,,
+G. Business Continuity & Resilience,5,G1-G3,,,,
+H. Application & Infrastructure Security,10,H1-H4,,,,
+TOTAL,100,,,,,Overall rating: Low (>=3.0) / Medium (2.0-2.9) / High (<2.0)

@@ -1,0 +1,5 @@
+Risk ID,Asset ID,Asset,Threat,Threat Source,Vulnerability,Related Misconfig,Likelihood (1-5),Impact (1-5),Risk Score,Risk Band,Existing Controls,Risk Owner,Treatment Decision,Status
+R-01,A-01,web,Unauthorised access via brute-force of SSH,External attacker,Security group allows SSH (22) from 0.0.0.0/0,M-01,4,4,16,Critical,None,Platform,Mitigate,Open
+R-02,A-03,meridian-customer-reports,Exfiltration of customer report data,External attacker,S3 public access not fully blocked / broad bucket policy,M-02,3,5,15,High,Bucket in private VPC only by convention,Data,Mitigate,Open
+R-03,A-04,analyst-role,Privilege escalation / blast radius,Malicious insider or compromised workload,IAM role has wildcard (*:*) permissions,M-03,3,4,12,High,None,Security,Mitigate,Open
+R-04,A-01,web,Account compromise,External attacker,Console IAM user without MFA,M-04,3,4,12,High,Strong password policy,Security,Mitigate,Open

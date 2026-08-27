@@ -1,0 +1,6 @@
+Asset ID,Asset Name,Type,Description,Data Stored,Data Classification,Environment,Owner,Notes
+A-01,web,EC2 instance,Customer-facing dashboard host (public subnet),None (compute only),Internal,Lab,Platform,Example row - replace
+A-02,db,EC2 instance,Analytics database host (private subnet),De-identified clinical datasets,Confidential,Lab,Platform,
+A-03,meridian-customer-reports,S3 bucket,Stored population-health report exports,Customer report exports,Confidential,Lab,Data,
+A-04,analyst-role,IAM role,Role assumed by analytics workloads,N/A,Confidential,Lab,Security,
+A-05,cloudtrail-logs,S3 bucket + trail,Audit log store,CloudTrail events,Internal,Lab,Security,

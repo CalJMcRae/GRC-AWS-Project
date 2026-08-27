@@ -1,0 +1,5 @@
+Risk ID,Risk Summary,Risk Band,CSF Subcategory,Remediation Recommendation,Effort (S/M/L),Est. Cost,Owner,Priority Window,Status,Evidence (before/after)
+R-01,SSH open to 0.0.0.0/0 on web host,Critical,PR.IR-01,Restrict web-sg ingress 22 to VPN/bastion CIDR; consider SSM Session Manager instead of SSH,S,Low,Platform,0-30 days,Not started,
+R-02,Customer report S3 bucket exposure,High,PR.DS-01,Enable account-level + bucket Public Access Block; replace bucket policy with least-privilege; enable default SSE-KMS,S,Low,Data,0-30 days,Not started,
+R-03,IAM role with wildcard permissions,High,PR.AA-05,Replace *:* policy with scoped actions/resources; add permissions boundary,M,Low,Security,30-90 days,Not started,
+R-04,Console IAM user without MFA,High,PR.AA-03,Enforce MFA via IAM policy / SCP; remediate existing users,S,Low,Security,0-30 days,Not started,

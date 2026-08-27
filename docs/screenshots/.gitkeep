@@ -1,0 +1,2 @@
+# Screenshots referenced across the repo (AWS console evidence, before/after fixes, scanner output).
+# Name files by phase, e.g. 01-vpc-create.png, 06-r01-sg-before.png, 06-r01-sg-after.png.
