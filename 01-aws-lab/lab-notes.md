@@ -14,16 +14,36 @@ _Export a diagram (draw.io / Lucidchart) to `architecture-diagram.png` in this f
 
 ## Build method
 
-- [ ] Console-first, screenshotted → see [`console-setup-steps.md`](console-setup-steps.md)
-- [ ] Terraform (IaC) → see [`terraform/`](terraform/)
+- [x] Console-first, screenshotted → see [`console-setup-steps.md`](console-setup-steps.md)
+- [ ] Terraform (IaC) → see [`terraform/`](terraform/) *(optional stretch goal)*
 
 Screenshots go in [`../docs/screenshots/`](../docs/screenshots/).
+
+## Environment facts
+
+| | |
+|---|---|
+| AWS account | `328064416121` |
+| Region | `us-west-1` (N. California) |
+| AZs in use | `us-west-1a` (primary), `us-west-1c` (secondary, unused) |
+| Build principal | `arn:aws:iam::328064416121:user/Callum-v2` |
+| Cost guardrail | Budget `meridian-lab-monthly`, $5/mo, alerts to email — `00-budget.png` |
+
+## Build log
+
+| Date | Component | Identifier(s) | Screenshot | Notes |
+|---|---|---|---|---|
+| 2026-08-28 | VPC | `vpc-0637dab0dab26a5f4` (10.0.0.0/16) | `01-vpc-resource-map.png` | Built via "VPC and more" wizard, NAT gateways = None |
+| 2026-08-28 | Public subnet | `meridian-subnet-public1-us-west-1a` (10.0.1.0/24) | " | Route table `meridian-rtb-public` → `meridian-igw` |
+| 2026-08-28 | Private subnet | `meridian-subnet-private1-us-west-1a` (10.0.2.0/24) | " | No `0.0.0.0/0` route (no NAT) — DB host has no internet egress |
+| 2026-08-28 | Internet gateway | `meridian-igw` | " | Attached to VPC |
+| 2026-08-28 | Extra subnets (unused) | `...public2-us-west-1c`, `...private2-us-west-1c` | " | Created by wizard, no cost, no instances placed |
 
 ## Components
 
 | Component | Represents (Meridian context) | Notes |
 |---|---|---|
-| VPC (public + private subnets) | Core network boundary | |
+| VPC (public + private subnets) | Core network boundary | ✅ built — `vpc-0637dab0dab26a5f4`, see Build log |
 | EC2 — `web` (public subnet) | Customer-facing dashboard host | |
 | EC2 — `db` (private subnet) | Analytics database host | |
 | S3 bucket — `customer-reports` | Stored population-health report exports | |
@@ -48,7 +68,7 @@ _These are "discovered" in Phase 2. Keep this list accurate as the lab evolves._
 
 - [ ] Stay in free tier where possible (t2.micro / t3.micro, single-AZ)
 - [ ] Stop or `terraform destroy` resources when not in use
-- [ ] Billing alert / budget configured
+- [x] Billing alert / budget configured — `meridian-lab-monthly`, $5/mo
 
 ## Teardown
 
