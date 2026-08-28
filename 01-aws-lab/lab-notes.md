@@ -38,6 +38,8 @@ Screenshots go in [`../docs/screenshots/`](../docs/screenshots/).
 | 2026-08-28 | Private subnet | `meridian-subnet-private1-us-west-1a` (10.0.2.0/24) | " | No `0.0.0.0/0` route (no NAT) — DB host has no internet egress |
 | 2026-08-28 | Internet gateway | `meridian-igw` | " | Attached to VPC |
 | 2026-08-28 | Extra subnets (unused) | `...public2-us-west-1c`, `...private2-us-west-1c` | " | Created by wizard, no cost, no instances placed |
+| 2026-08-28 | Security group `web-sg` | `sg-0c6a8765c52a2d56d` | `02-web-sg.png` | Inbound 80/443 from `0.0.0.0/0` (legit) **+ SSH 22 from `0.0.0.0/0` = M-01** |
+| 2026-08-28 | Security group `db-sg` | `sg-0d8b174e89ca578a5` | `02-db-sg.png` | Inbound 5432 from source `web-sg` only — least-privilege contrast |
 
 ## Components
 
@@ -56,13 +58,13 @@ Screenshots go in [`../docs/screenshots/`](../docs/screenshots/).
 
 _These are "discovered" in Phase 2. Keep this list accurate as the lab evolves._
 
-| ID | Component | Misconfiguration | Intended finding |
-|---|---|---|---|
-| M-01 | Security group (`web`) | SSH (22) open to `0.0.0.0/0` | Internet-exposed management port → brute force |
-| M-02 | S3 `customer-reports` | _e.g. public access block off / overly broad policy_ | Potential data exfiltration |
-| M-03 | IAM role | Overly permissive (`*:*`) policy attached | Least-privilege violation |
-| M-04 | IAM user | Console user without MFA | Credential compromise risk |
-| M-05 | _tbd_ | | |
+| ID | Component | Misconfiguration | Intended finding | Status |
+|---|---|---|---|---|
+| M-01 | Security group `web-sg` (`sg-0c6a8765c52a2d56d`) | SSH (22) open to `0.0.0.0/0` | Internet-exposed management port → brute force | ✅ built |
+| M-02 | S3 `customer-reports` | _e.g. public access block off / overly broad policy_ | Potential data exfiltration | pending (Step 5) |
+| M-03 | IAM role | Overly permissive (`*:*`) policy attached | Least-privilege violation | pending (Step 6) |
+| M-04 | IAM user | Console user without MFA | Credential compromise risk | pending (Step 6) |
+| M-05 | EC2 `web` instance metadata | IMDSv1 left enabled (token optional) | SSRF → EC2 credential theft | pending (Step 3) |
 
 ## Cost control
 
