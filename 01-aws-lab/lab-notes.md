@@ -40,7 +40,8 @@ Screenshots go in [`../docs/screenshots/`](../docs/screenshots/).
 | 2026-08-28 | Extra subnets (unused) | `...public2-us-west-1c`, `...private2-us-west-1c` | " | Created by wizard, no cost, no instances placed |
 | 2026-08-28 | Security group `web-sg` | `sg-0c6a8765c52a2d56d` | `02-web-sg.png` | Inbound 80/443 from `0.0.0.0/0` (legit) **+ SSH 22 from `0.0.0.0/0` = M-01** |
 | 2026-08-28 | Security group `db-sg` | `sg-0d8b174e89ca578a5` | `02-db-sg.png` | Inbound 5432 from source `web-sg` only — least-privilege contrast |
-| 2026-08-28 | EC2 `meridian-web` | `i-0be139d0d1ed30215` (t3.micro, AL2023) | `03-ec2-web.png` | Public subnet, public IP `50.18.11.11`, private `10.0.13.28`, SG `web-sg`. **IMDSv2 = Optional → M-05.** No IAM role attached. httpd user-data. Stopped after build. |
+| 2026-08-28 | EC2 `meridian-web` | `i-0be139d0d1ed30215` (t3.micro, AL2023) | `03-ec2-web.png` | Public subnet `...public1-us-west-1a`, public IP `50.18.11.11`, private `10.0.13.28`, SG `web-sg`. **IMDSv2 = Optional → M-05.** No IAM role attached. httpd user-data. Stopped after build. |
+| 2026-08-30 | EC2 `meridian-db` | `i-00b082701da0ffbdd` (t3.micro, AL2023) | `04-ec2-db.png` | Private subnet `subnet-083d9c1a556e27767 (...private1-us-west-1a)`, **no public IP**, private `10.0.133.145`, SG `db-sg`, IMDSv2 = Required (secure). First attempt `i-0c7e1b1762fd5af9c` landed in the public subnet — terminated and relaunched. Stopped after build. |
 
 ## Components
 
