@@ -42,6 +42,7 @@ Screenshots go in [`../docs/screenshots/`](../docs/screenshots/).
 | 2026-08-28 | Security group `db-sg` | `sg-0d8b174e89ca578a5` | `02-db-sg.png` | Inbound 5432 from source `web-sg` only — least-privilege contrast |
 | 2026-08-28 | EC2 `meridian-web` | `i-0be139d0d1ed30215` (t3.micro, AL2023) | `03-ec2-web.png` | Public subnet `...public1-us-west-1a`, public IP `50.18.11.11`, private `10.0.13.28`, SG `web-sg`. **IMDSv2 = Optional → M-05.** No IAM role attached. httpd user-data. Stopped after build. |
 | 2026-08-30 | EC2 `meridian-db` | `i-00b082701da0ffbdd` (t3.micro, AL2023) | `04-ec2-db.png` | Private subnet `subnet-083d9c1a556e27767 (...private1-us-west-1a)`, **no public IP**, private `10.0.133.145`, SG `db-sg`, IMDSv2 = Required (secure). First attempt `i-0c7e1b1762fd5af9c` landed in the public subnet — terminated and relaunched. Stopped after build. |
+| 2026-08-30 | S3 bucket `meridian-customer-reports-328064416121` | us-west-1 | `05-s3-bucket.png`, `05-s3-object-public.png` | Holds `meridian-population-health-report-2026Q2.csv` (synthetic). **Bucket-level Block Public Access = Off; account-level Block Public Access = Off; public-read bucket policy (`s3:GetObject`, `Principal:*`) → M-02.** Verified anonymously readable: `GET .../meridian-population-health-report-2026Q2.csv` → HTTP 200, text/csv, 1135 bytes, no auth. |
 
 ## Components
 
@@ -63,7 +64,7 @@ _These are "discovered" in Phase 2. Keep this list accurate as the lab evolves._
 | ID | Component | Misconfiguration | Intended finding | Status |
 |---|---|---|---|---|
 | M-01 | Security group `web-sg` (`sg-0c6a8765c52a2d56d`) | SSH (22) open to `0.0.0.0/0` | Internet-exposed management port → brute force | ✅ built |
-| M-02 | S3 `customer-reports` | _e.g. public access block off / overly broad policy_ | Potential data exfiltration | pending (Step 5) |
+| M-02 | S3 `meridian-customer-reports-328064416121` | Block Public Access off (bucket **and** account level) + public-read bucket policy (`Principal:*`, `s3:GetObject`) | Anonymous internet download of customer reports → data exfiltration | ✅ built (verified public) |
 | M-03 | IAM role | Overly permissive (`*:*`) policy attached | Least-privilege violation | pending (Step 6) |
 | M-04 | IAM user | Console user without MFA | Credential compromise risk | pending (Step 6) |
 | M-05 | EC2 `meridian-web` (`i-0be139d0d1ed30215`) instance metadata | IMDSv1 left enabled (IMDSv2 = Optional) | SSRF → EC2 credential theft | ✅ built |
