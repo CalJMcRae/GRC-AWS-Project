@@ -21,11 +21,12 @@ prowler-output/
 scoutsuite-report/
 *.ocsf.json
 
-# OS / editor
+# OS / editor / tooling
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+.claude/
 *~
 *.tmp
 

@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "PowerShell(Copy-Item \"C:\\\\Users\\\\Callum McRae\\\\OneDrive\\\\Pictures\\\\Screenshots\\\\04-ec2-db.png.png\" \"c:\\\\Users\\\\Callum McRae\\\\GRC AWS Project\\\\docs\\\\screenshots\\\\04-ec2-db.png\" -Force)"
-    ]
-  }
-}
