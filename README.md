@@ -1,6 +1,6 @@
 # Cybersecurity GRC Portfolio Project
 
-> **Status:** Phase 1 complete (AWS lab built, 5 deliberate misconfigurations planted and documented) — Phase 2 (risk assessment) next.
+> **Status:** Phase 2 complete (asset inventory, Prowler scan, 16-risk register) — Phase 3 (NIST CSF 2.0 mapping) next.
 
 An end-to-end GRC engagement built around a small, real AWS environment. It walks a
 finding from cloud misconfiguration → risk register → NIST CSF 2.0 control mapping →
@@ -42,11 +42,18 @@ real business context rather than a checklist feel.
 
 ## Key findings summary
 
-_Populated at the end of Phase 2 / Phase 6._
+16 risks identified (2 critical, 4 high, 8 medium, 2 low) — 5 built into the lab by design,
+11 surfaced by an independent Prowler scan. Full register:
+[`02-risk-assessment/risk-register.csv`](02-risk-assessment/risk-register.csv). Top risks:
 
 | # | Risk | Asset | Score | CSF subcategory | Treatment |
 |---|------|-------|-------|-----------------|-----------|
-| _tbd_ | | | | | |
+| R-01 | Public S3 bucket → customer report exfiltration | Customer reports (S3) | 25 · Critical | _Phase 3_ | Mitigate |
+| R-02 | AdministratorAccess role on internet-facing web host (chain) | meridian-ec2-app-role / meridian-web | 20 · Critical | _Phase 3_ | Mitigate |
+| R-03 | SSH open to the internet | web-sg | 12 · High | _Phase 3_ | Mitigate |
+| R-04 | IMDSv1 enabled (metadata credential theft) | meridian-web | 12 · High | _Phase 3_ | Mitigate |
+| R-16 | Build/admin IAM user without MFA | Callum-v2 | 12 · High | _Phase 3_ | Mitigate |
+| R-06 | Privilege-escalation path to administrator | Callum-v2 → admin role | 10 · High | _Phase 3_ | Mitigate |
 
 ## Tools & frameworks referenced
 
