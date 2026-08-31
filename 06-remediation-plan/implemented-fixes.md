@@ -12,7 +12,7 @@ The full remediation plan for all 16 risks is in [`remediation-roadmap.csv`](rem
 ### Actions taken
 1. Deleted the public-read bucket policy (`s3:GetObject` to `Principal:*`).
 2. Re-enabled **bucket-level** Block Public Access (all four settings).
-3. Re-enabled **account-level** Block Public Access (backstop disabled in Phase 1). *— pending screenshot confirmation*
+3. Re-enabled **account-level** Block Public Access (the backstop disabled in Phase 1) — confirmed "successfully updated", all four settings On.
 
 ### Evidence
 
@@ -20,13 +20,16 @@ The full remediation plan for all 16 risks is in [`remediation-roadmap.csv`](rem
 |---|---|---|
 | Anonymous `GET` on `meridian-population-health-report-2026Q2.csv` (no credentials) | `HTTP 200`, `text/csv`, 1135 bytes | **`HTTP 403 Forbidden`** |
 | Bucket Permissions tab | Block all public access: **Off**; public-read policy present | Block all public access: **On**; "No policy to display" |
-| Screenshots | `05-s3-bucket.png`, `05-s3-object-public.png` | `06r-s3-bucket-after.png`, `06r-s3-bucket-bpa-edit.png` |
+| Account-level Block Public Access | Off (disabled in Phase 1 to allow the public policy) | **On** (all four settings) |
+| Screenshots | `05-s3-bucket.png`, `05-s3-object-public.png` | `06r-s3-bucket-after.png`, `06r-s3-bucket-bpa-edit.png`, `06r-s3-account-bpa-after.png` |
 
 Both `GET` checks run from an unauthenticated workstation via `Invoke-WebRequest`.
 
 ### Residual risk
-Low. Bucket is private and access is now IAM-gated. Remaining hardening (versioning,
-HTTPS-only policy, server access logging) tracked as **R-15**.
+Low. Bucket is private, access is IAM-gated, and the account-level backstop now protects
+future buckets too. Remaining hardening (versioning, HTTPS-only policy, server access
+logging) tracked as **R-15**. Re-enabling account BPA also clears the Phase 1 change noted
+in the teardown checklist.
 
 ---
 
