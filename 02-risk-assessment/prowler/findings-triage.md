@@ -13,6 +13,11 @@
 | **FAIL (unmuted)** | **116** — 3 critical, 28 high, 55 medium, 30 low |
 | Manual | 5 |
 
+> Of Prowler's 3 "critical" fails, two are real and severe (`s3_bucket_public_access` → R-01,
+> `iam_aws_attached_policy_no_administrative_privileges` → R-02). The third
+> (`iam_root_hardware_mfa_enabled`) is a context downgrade: root **does** have virtual MFA, so
+> this is a minor hardware-MFA gap (see P-04 / R-07), not an unprotected root account.
+
 116 raw failures is misleading. Most are CIS/AWS-best-practice checks that fail on **any
 small single-account environment** (no AWS Organizations, no Config aggregator, no Network
 Firewall, no Bedrock/SageMaker usage, no multi-region footprint). After removing those,
@@ -45,8 +50,8 @@ Independent tool corroboration of every planted weakness — the lab behaves as 
 | P-01 | **`Callum-v2` privilege-escalation path** | `iam_inline_policy_allows_privilege_escalation` | high | Inline policies `AltPermsEC2` + `EC2Perm` grant `ec2:ModifyInstanceAttribute`, `ec2:CreateLaunchTemplateVersion`, `ec2:StartInstances/StopInstances` — enough to attach the `AdministratorAccess` role to an instance and pivot to admin. Chains with M-03. |
 | P-02 | **`Callum-v2` no MFA + console password** | `iam_user_mfa_enabled_console_access`, `iam_user_hardware_mfa_enabled` | high | Same class as M-04 but on the build/admin user — higher impact. |
 | P-03 | **`Callum-v2` long-lived access keys** | `iam_user_with_temporary_credentials` | high | Long-lived keys with broad service access; no rotation to short-lived creds. |
-| P-04 | **Root account: no hardware MFA** | `iam_root_hardware_mfa_enabled` | critical | Real account hygiene (asset A-09). |
-| P-05 | **Root account actively used** | `iam_avoid_root_usage` | high | `Root user last accessed 0 days ago` — lab was operated as root. |
+| P-04 | **Root MFA is virtual, not hardware** | `iam_root_hardware_mfa_enabled` FAIL — but `iam_root_mfa_enabled` **PASS** | critical (Prowler) → **low (context)** | Root *does* have MFA (virtual TOTP, confirmed). Gap is a phishing-resistant hardware device (CIS Level 2). |
+| P-05 | **Root account actively used** | `iam_avoid_root_usage` | high | `Root user last accessed 0 days ago` — lab was operated as root; should be break-glass only. |
 | P-06 | **EBS volumes unencrypted at rest** | `ec2_ebs_volume_encryption`, `ec2_ebs_default_encryption` | high | `vol-0a3126a768fc6238a`, `vol-04097aa795bc6cbd4` unencrypted; account default EBS encryption off. Matters for the DB host that would hold clinical data. |
 | P-07 | **No VPC flow logs** | `vpc_flow_logs_enabled` | medium | `meridian-vpc` — no network traffic record; weakens detection/forensics. |
 | P-08 | **No real-time monitoring / alerting** | `cloudtrail_cloudwatch_logging_enabled` + ~14 `cloudwatch_*` metric-filter/alarm checks | medium | CloudTrail not delivered to CloudWatch Logs; no metric filters or alarms for root use, unauthorized calls, policy/SG/NACL changes, etc. Partly a known lab trade-off (Step 7). Treat as ONE finding. |
