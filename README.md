@@ -1,6 +1,6 @@
 # Cybersecurity GRC Portfolio Project
 
-> **Status:** Phase 3 in progress — 16 risks mapped to NIST CSF 2.0 with maturity gaps and a heat map (under review).
+> **Status:** Phase 3 complete (16 risks mapped to NIST CSF 2.0, maturity gaps + heat map) — Phase 6-partial (implement fixes in the lab) next.
 
 An end-to-end GRC engagement built around a small, real AWS environment. It walks a
 finding from cloud misconfiguration → risk register → NIST CSF 2.0 control mapping →
@@ -48,12 +48,12 @@ real business context rather than a checklist feel.
 
 | # | Risk | Asset | Score | CSF subcategory | Treatment |
 |---|------|-------|-------|-----------------|-----------|
-| R-01 | Public S3 bucket → customer report exfiltration | Customer reports (S3) | 25 · Critical | _Phase 3_ | Mitigate |
-| R-02 | AdministratorAccess role on internet-facing web host (chain) | meridian-ec2-app-role / meridian-web | 20 · Critical | _Phase 3_ | Mitigate |
-| R-03 | SSH open to the internet | web-sg | 12 · High | _Phase 3_ | Mitigate |
-| R-04 | IMDSv1 enabled (metadata credential theft) | meridian-web | 12 · High | _Phase 3_ | Mitigate |
-| R-16 | Build/admin IAM user without MFA | Callum-v2 | 12 · High | _Phase 3_ | Mitigate |
-| R-06 | Privilege-escalation path to administrator | Callum-v2 → admin role | 10 · High | _Phase 3_ | Mitigate |
+| R-01 | Public S3 bucket → customer report exfiltration | Customer reports (S3) | 25 · Critical | PR.DS-01 | Mitigate |
+| R-02 | AdministratorAccess role on internet-facing web host (chain) | meridian-ec2-app-role / meridian-web | 20 · Critical | PR.AA-05 | Mitigate |
+| R-03 | SSH open to the internet | web-sg | 12 · High | PR.IR-01 | Mitigate |
+| R-04 | IMDSv1 enabled (metadata credential theft) | meridian-web | 12 · High | PR.PS-01 | Mitigate |
+| R-16 | Build/admin IAM user without MFA | Callum-v2 | 12 · High | PR.AA-03 | Mitigate |
+| R-06 | Privilege-escalation path to administrator | Callum-v2 → admin role | 10 · High | PR.AA-05 | Mitigate |
 
 ## Tools & frameworks referenced
 
