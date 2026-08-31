@@ -1,6 +1,6 @@
 # Cybersecurity GRC Portfolio Project
 
-> **Status:** Phase 2 complete (asset inventory, Prowler scan, 16-risk register) — Phase 3 (NIST CSF 2.0 mapping) next.
+> **Status:** Phase 3 in progress — 16 risks mapped to NIST CSF 2.0 with maturity gaps and a heat map (under review).
 
 An end-to-end GRC engagement built around a small, real AWS environment. It walks a
 finding from cloud misconfiguration → risk register → NIST CSF 2.0 control mapping →
