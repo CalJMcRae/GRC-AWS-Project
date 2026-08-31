@@ -1,10 +1,10 @@
-Domain,Weight (%),Questions,Score (0-4),Weighted Score,Key Gaps,Comments
-A. Governance & Compliance,15,A1-A5,,,,
-B. Data Handling & Privacy,20,B1-B5,,,,
-C. Encryption,10,C1-C3,,,,
-D. Access Control,15,D1-D4,,,,
-E. Incident Response,15,E1-E3,,,,
-F. Subprocessors & Supply Chain,10,F1-F3,,,,
-G. Business Continuity & Resilience,5,G1-G3,,,,
-H. Application & Infrastructure Security,10,H1-H4,,,,
-TOTAL,100,,,,,Overall rating: Low (>=3.0) / Medium (2.0-2.9) / High (<2.0)
+"Domain","Weight (%)","Questions","Score (0-4)","Weighted Score","Key gaps","Comments"
+"A. Governance & Compliance",15,"A1-A5",3,0.45,"No ISO 27001; SOC 2 Privacy TSC out of scope","Current SOC 2 Type II (Sec/Avail/Conf), cyber insurance $2M, named security owner"
+"B. Data Handling & Privacy",20,"B1-B5",2,0.40,"Logical-only tenant isolation; secondary use of customer data for analytics; BAA declined; 90-day backup retention tail","US-only hosting is a plus; this is the weakest domain and drives the conditions"
+"C. Encryption",10,"C1-C3",3,0.30,"No customer-managed key / BYOK option","AES-256 at rest (KMS), TLS 1.2+ enforced in transit"
+"D. Access Control",15,"D1-D4",3,0.45,"Access reviews annual not quarterly; JML partly manual; no SCIM","MFA enforced via SSO, no local prod accounts, privileged actions logged to SIEM (12-mo retention)"
+"E. Incident Response",15,"E1-E3",2,0.30,"No committed breach-notification SLA (only 'without undue delay'); cloud-misconfiguration incident in 2025","IR plan documented and tabletop-tested annually; 2025 incident disclosed openly, no customer data involved"
+"F. Subprocessors & Supply Chain",10,"F1-F3",2,0.20,"No ongoing subprocessor monitoring after onboarding; 30-day notice but no termination right on objection","Public subprocessor list (AWS, SendGrid, Twilio, Datadog, Stripe)"
+"G. Business Continuity & Resilience",5,"G1-G3",4,0.20,"None material","RTO 4h / RPO 1h, multi-AZ + cross-region standby, restore tests quarterly, annual failover test"
+"H. Application & Infrastructure Security",10,"H1-H4",3,0.30,"No DAST or formal threat modelling; VDP only, no paid bug bounty","Annual third-party pen test with retest; attestation letter available under NDA; SAST + dependency scanning in CI"
+"TOTAL",100,"",,"2.60","","Rating bands: Low >= 3.0 | Medium 2.0-2.9 | High < 2.0  ->  2.60 = MEDIUM-RISK VENDOR"
