@@ -16,10 +16,13 @@ aws-exports.*
 **/*secret*
 **/*credentials*
 
-# Scanner output (keep curated findings only, not raw dumps)
-prowler-output/
+# Scanner output — ignore raw dumps everywhere, but keep the curated
+# reports committed under 02-risk-assessment/prowler/
+/prowler-output/
 scoutsuite-report/
 *.ocsf.json
+*.ocsf.json.gz
+!02-risk-assessment/prowler/
 
 # OS / editor / tooling
 .DS_Store
