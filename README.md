@@ -1,6 +1,6 @@
 # Cybersecurity GRC Portfolio Project
 
-> **Status:** Phase 4 complete (SlotHive vendor assessment — questionnaire, scorecard, recommendation memo). Phases 1–4 + partial Phase 6 done. Phase 5 (SOC 2 report review) next.
+> **Status:** Phase 5 complete (SOC 2 Type II report review — SlotHive, cross-checked against the Phase 4 questionnaire). Phases 1–5 + partial Phase 6 done. Phase 6-finish (full remediation roadmap) + Phase 7 (README polish) remain.
 
 An end-to-end GRC engagement built around a small, real AWS environment. It walks a
 finding from cloud misconfiguration → risk register → NIST CSF 2.0 control mapping →
