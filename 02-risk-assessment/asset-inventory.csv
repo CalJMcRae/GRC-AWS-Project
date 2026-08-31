@@ -1,6 +1,14 @@
-Asset ID,Asset Name,Type,Description,Data Stored,Data Classification,Environment,Owner,Notes
-A-01,web,EC2 instance,Customer-facing dashboard host (public subnet),None (compute only),Internal,Lab,Platform,Example row - replace
-A-02,db,EC2 instance,Analytics database host (private subnet),De-identified clinical datasets,Confidential,Lab,Platform,
-A-03,meridian-customer-reports,S3 bucket,Stored population-health report exports,Customer report exports,Confidential,Lab,Data,
-A-04,analyst-role,IAM role,Role assumed by analytics workloads,N/A,Confidential,Lab,Security,
-A-05,cloudtrail-logs,S3 bucket + trail,Audit log store,CloudTrail events,Internal,Lab,Security,
+Asset ID,Asset,Type,AWS Identifier,Meridian role / description,Data stored,Classification,Owner,Environment,Notes
+A-01,Customer population-health reports,Data,s3://meridian-customer-reports-328064416121,Exported dashboards delivered to customers; the crown-jewel dataset,"De-identified aggregate clinical metrics (synthetic in lab)",Confidential,Data team,Lab,Currently world-readable (M-02)
+A-02,meridian-customer-reports bucket,S3 bucket,meridian-customer-reports-328064416121,Storage container for A-01,See A-01,Confidential,Data team,Lab,Block Public Access off at bucket + account level; public-read policy
+A-03,meridian-db,EC2 instance,i-00b082701da0ffbdd,Analytics database host,Would hold copy of A-01 + query workload,Confidential,Platform team,Lab,Private subnet; no public IP; IMDSv2 required; currently stopped
+A-04,meridian-web,EC2 instance,i-0be139d0d1ed30215,Customer-facing dashboard / web host,Session data; app config,Internal,Platform team,Lab,Public subnet + public IP; IMDSv1 enabled (M-05); admin role attached (M-03); httpd
+A-05,meridian-ec2-app-role,IAM role,arn:aws:iam::328064416121:role/meridian-ec2-app-role,Instance role for app EC2 hosts,Temporary AWS credentials (STS),Confidential,Security team,Lab,AdministratorAccess attached (M-03); assumable by EC2
+A-06,meridian-analyst-1,IAM user,arn:aws:iam::328064416121:user/meridian-analyst-1,Analyst console identity,Console credentials,Confidential,Security team,Lab,Console access, no MFA (M-04); permissions via meridian-analysts group
+A-07,meridian-analysts,IAM group,arn:aws:iam::328064416121:group/meridian-analysts,Permission set for analyst staff,N/A,Internal,Security team,Lab,AmazonS3ReadOnlyAccess (scoped - good practice)
+A-08,Callum-v2,IAM user,arn:aws:iam::328064416121:user/Callum-v2,Admin/CLI identity used to build the lab,Access keys; console,Confidential,Security team,Lab,No MFA; narrow policy today - to be widened for Prowler
+A-09,Root account,AWS account identity,328064416121,Account owner identity,Root credentials,Confidential,Account owner,Lab,Out of Meridian narrative but in technical scope - check MFA / access keys
+A-10,CloudTrail audit log,Log data,s3://aws-cloudtrail-logs-328064416121-55e65cb1,Tamper-evident record of API activity,API event history,Internal,Security team,Lab,Trail meridian-trail: multi-region, log-file validation, SSE-KMS
+A-11,meridian KMS key,KMS CMK,arn:aws:kms:us-west-1:328064416121:key/2c4c6389-6e15-43e8-8c54-441869727451,Encrypts CloudTrail log files,Key material,Confidential,Security team,Lab,Alias 'meridian'
+A-12,VPC network + security groups,Network,vpc-0637dab0dab26a5f4,Network boundary and segmentation for the lab,N/A,Internal,Platform team,Lab,web-sg SSH 0.0.0.0/0 (M-01); db-sg locked to web-sg (good)
+A-13,meridian-key SSH key pair,Credential,key pair 'meridian-key',Private key for EC2 SSH access,Private key,Confidential,Platform team,Workstation,Stored at ~/.aws/meridian-lab/ (git-ignored), not in AWS
