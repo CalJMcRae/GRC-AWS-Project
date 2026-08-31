@@ -1,7 +1,7 @@
-# Vendor Security Assessment — BrightSlot
+# Vendor Security Assessment — SlotHive
 
 **Assessing organisation:** Meridian Health Analytics
-**Vendor:** BrightSlot, Inc. — cloud appointment-scheduling SaaS
+**Vendor:** SlotHive, Inc. — cloud appointment-scheduling SaaS
 **Assessment date:** 2026-09 · **Assessor:** Callum McRae (GRC)
 **Questionnaire basis:** condensed SIG-Lite structure, 8 domains
 **Outcome:** Medium-risk vendor — **Approve with conditions** (see [`recommendation-memo.md`](recommendation-memo.md))
@@ -10,8 +10,8 @@
 
 ## 1. Engagement scope
 
-Meridian is evaluating BrightSlot to power the appointment-booking widget inside its
-partner-clinic portal. If adopted, Meridian would transmit to BrightSlot via API:
+Meridian is evaluating SlotHive to power the appointment-booking widget inside its
+partner-clinic portal. If adopted, Meridian would transmit to SlotHive via API:
 
 | Data element | Type | Sensitivity |
 |---|---|---|
@@ -24,7 +24,7 @@ partner-clinic portal. If adopted, Meridian would transmit to BrightSlot via API
 clinical notes, diagnoses, the population-health datasets (asset A-01).
 
 **Integration model:** server-to-server REST API, OAuth client credentials, Meridian-issued
-API key scoped to the booking endpoints. No end-user SSO into BrightSlot by Meridian staff.
+API key scoped to the booking endpoints. No end-user SSO into SlotHive by Meridian staff.
 
 ---
 
@@ -49,8 +49,8 @@ Response key: **Y** / **Partial** / **N** / **N/A**. "Assessor note" is Meridian
 | B1 | Where is data stored / processed? | **Y** | AWS `us-east-1` and `us-west-2`. US only. No offshore processing or support. | Good — no cross-border transfer issues. |
 | B2 | Tenant data segregation? | **Partial** | Logical segregation — shared database, row-level `tenant_id` isolation. Not physically separate schemas/instances. | Common for SaaS at this stage; raises the impact of an isolation bug. Acceptable **with** the SOC 2 controls evidence. |
 | B3 | Retention and secure deletion? | **Partial** | Production data purged 30 days after contract termination. **Backups retained 90 days** before rotation. | 90-day backup tail should be disclosed to clinics; acceptable if contractually capped and documented. |
-| B4 | Any secondary use of customer data? | **Partial** | "Aggregated, de-identified usage analytics for product improvement." | **Concern.** Meridian does not want its data — even de-identified — in BrightSlot's analytics. Must be contractually prohibited (condition). |
-| B5 | Will you sign a BAA / DPA? | **Partial** | Signs a DPA. **Declines to sign a BAA** — "we do not handle PHI, so we are not a Business Associate." | **Key finding.** BrightSlot's self-classification is arguable: appointment metadata tied to a clinic can be PHI-adjacent. Meridian's counsel should rule; failing a BAA, bind BrightSlot to equivalent obligations by contract. |
+| B4 | Any secondary use of customer data? | **Partial** | "Aggregated, de-identified usage analytics for product improvement." | **Concern.** Meridian does not want its data — even de-identified — in SlotHive's analytics. Must be contractually prohibited (condition). |
+| B5 | Will you sign a BAA / DPA? | **Partial** | Signs a DPA. **Declines to sign a BAA** — "we do not handle PHI, so we are not a Business Associate." | **Key finding.** SlotHive's self-classification is arguable: appointment metadata tied to a clinic can be PHI-adjacent. Meridian's counsel should rule; failing a BAA, bind SlotHive to equivalent obligations by contract. |
 
 ### C. Encryption
 
@@ -67,14 +67,14 @@ Response key: **Y** / **Partial** / **N** / **N/A**. "Assessor note" is Meridian
 | D1 | MFA enforced for all employee production access? | **Y** | Enforced via Okta SSO; no direct local accounts on production. | Good. |
 | D2 | Least privilege + periodic access review? | **Partial** | RBAC in place. Access reviews performed **annually**, joiner/mover/leaver process is partly manual. | Annual review is light for production access to customer data; quarterly preferred. |
 | D3 | Privileged / admin access logged and monitored? | **Y** | CloudTrail + SIEM, alerting on privileged actions, 12-month log retention. | Good. |
-| D4 | SSO / SCIM for customer administrators? | **Partial** | SAML SSO available. **No SCIM** — customer-side user deprovisioning is manual or via API. | Relevant only if Meridian staff get BrightSlot logins; current integration model avoids this. Note for future. |
+| D4 | SSO / SCIM for customer administrators? | **Partial** | SAML SSO available. **No SCIM** — customer-side user deprovisioning is manual or via API. | Relevant only if Meridian staff get SlotHive logins; current integration model avoids this. Note for future. |
 
 ### E. Incident Response
 
 | # | Question | Response | Vendor detail | Assessor note |
 |---|---|---|---|---|
 | E1 | Documented and tested IR plan? | **Y** | Plan documented; tabletop exercise annually; last run 2026-04. | OK. |
-| E2 | Breach notification SLA to customers? | **Partial** | "Without undue delay." No committed hour figure. | **Gap.** Meridian needs a contractual maximum (≤72h from confirmation) — condition. |
+| E2 | Breach notification SLA to customers? | **Partial** | "Without undue delay." No committed hour figure. | **Gap.** Meridian needs a contractual maximum (<=72h from confirmation) — condition. |
 | E3 | Security incident in the last 24 months? | **Y** | One (2025-11): a misconfigured internal logging bucket exposed application logs to another internal environment. No customer data involved. Remediated in 48h; root-cause published internally; added IaC guardrails and a config-scanning check. | Disclosed openly, which is a positive signal. The incident type (a cloud misconfiguration) is a yellow flag — probe their config-scanning maturity in a follow-up call. |
 
 ### F. Subprocessors & Supply Chain
