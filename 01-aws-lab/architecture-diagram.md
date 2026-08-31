@@ -50,13 +50,15 @@ flowchart TB
 
 ## Legend — deliberate misconfigurations
 
-| ID | Where | Weakness | Intended finding |
-|---|---|---|---|
-| M-01 | `web-sg` | SSH 22 open to `0.0.0.0/0` | Internet-exposed management port |
-| M-02 | `meridian-customer-reports` S3 | Public Block off (bucket + account) + public-read policy | Anonymous data exfiltration |
-| M-03 | `meridian-ec2-app-role` on `meridian-web` | `AdministratorAccess` on an internet-facing host | Least-privilege violation; blast radius |
-| M-04 | `meridian-analyst-1` | Console user, no MFA | Credential compromise |
-| M-05 | `meridian-web` | IMDSv1 still enabled | SSRF → EC2 credential theft (chains with M-03) |
+This diagram shows the environment **as assessed** in Phase 2. Remediation status (Phase 6):
+
+| ID | Where | Weakness | Intended finding | Status |
+|---|---|---|---|---|
+| M-01 | `web-sg` | SSH 22 open to `0.0.0.0/0` | Internet-exposed management port | Open (R-03) |
+| M-02 | `meridian-customer-reports` S3 | Public Block off (bucket + account) + public-read policy | Anonymous data exfiltration | **Remediated** (R-01) |
+| M-03 | `meridian-ec2-app-role` on `meridian-web` | `AdministratorAccess` on an internet-facing host | Least-privilege violation; blast radius | Open (R-02) |
+| M-04 | `meridian-analyst-1` | Console user, no MFA | Credential compromise | Open (R-05) |
+| M-05 | `meridian-web` | IMDSv1 still enabled | SSRF → EC2 credential theft (chains with M-03) | **Remediated** (R-04) |
 
 ## Hardened / good-practice elements (the contrast)
 
