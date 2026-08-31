@@ -1,6 +1,6 @@
 # Cybersecurity GRC Portfolio Project
 
-> **Status:** Phase 0 complete (repo skeleton) — Phase 1 (AWS lab) in progress.
+> **Status:** Phase 1 complete (AWS lab built, 5 deliberate misconfigurations planted and documented) — Phase 2 (risk assessment) next.
 
 An end-to-end GRC engagement built around a small, real AWS environment. It walks a
 finding from cloud misconfiguration → risk register → NIST CSF 2.0 control mapping →

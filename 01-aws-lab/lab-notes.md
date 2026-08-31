@@ -8,9 +8,9 @@ to assess in Phase 2 — not hardened, not wide open.
 
 ## Architecture
 
-![Architecture diagram](architecture-diagram.png)
-
-_Export a diagram (draw.io / Lucidchart) to `architecture-diagram.png` in this folder._
+See **[`architecture-diagram.md`](architecture-diagram.md)** — Mermaid diagram (renders on GitHub)
+plus the misconfiguration legend and the hardened-element contrast. Optional: export a
+polished `architecture-diagram.png` for the top of the repo README.
 
 ## Build method
 
@@ -59,7 +59,7 @@ Screenshots go in [`../docs/screenshots/`](../docs/screenshots/).
 | IAM users / roles / groups | Staff + service access | ✅ group `meridian-analysts` (good), user `meridian-analyst-1` (M-04), role `meridian-ec2-app-role` (M-03) |
 | Security groups | Host-level network rules | ✅ `web-sg` (M-01), `db-sg` (locked down) |
 | CloudTrail | Audit logging evidence | ✅ `meridian-trail` — multi-region, validated, KMS-encrypted |
-| AWS Config / GuardDuty *(optional)* | Auto-generated findings | |
+| AWS Config / GuardDuty *(optional)* | Auto-generated findings | ⏭️ Skipped by choice — Phase 2 uses Prowler (free, open-source). Avoids per-item / usage billing. |
 
 ## Deliberate misconfigurations built in
 
