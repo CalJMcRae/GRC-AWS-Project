@@ -6,3 +6,7 @@
 *.jpg binary
 *.pdf binary
 *.xlsx binary
+
+# Keep scanner output and data files out of GitHub's language statistics
+02-risk-assessment/prowler/** linguist-generated=true
+*.csv linguist-detectable=false
