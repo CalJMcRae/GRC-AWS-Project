@@ -9,6 +9,9 @@ from cloud misconfiguration → risk register → NIST CSF 2.0 control mapping �
 remediation → verified fix, and adds two independent GRC workstreams — a mock vendor security
 assessment and a SOC 2 Type II report review.
 
+**New here?** [`docs/decision-log.md`](docs/decision-log.md) explains what was decided at each
+phase and how each conclusion was reached — the reasoning behind the deliverables.
+
 ---
 
 ## Scenario — the fictional company
